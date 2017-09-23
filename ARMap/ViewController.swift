@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  Location.swift
 //  ARMap
 //
 //  Created by Muhannad Mousa on 9/23/17.
@@ -11,9 +11,16 @@ import SceneKit
 import ARKit
 import CoreLocation
 
-class ViewController: UIViewController, ARSCNViewDelegate {
 
+class Location: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
+
+    @IBOutlet weak var long: UILabel!
+    @IBOutlet weak var lat: UILabel!
+    @IBOutlet weak var count: UILabel!
     @IBOutlet var sceneView: ARSCNView!
+    var timer = Timer()
+    var counter = 0
+    var locationManager: CLLocationManager!
     
     struct myCameraCoordinate {
         var x = Float()
@@ -21,8 +28,30 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         var z = Float()
     }
     
+    func scheduledTimerWithTimeInterval(){
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCoordinates), userInfo: nil, repeats: true)
+    }
     
-    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
+        if status == .authorizedWhenInUse{
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self){
+                if CLLocationManager.isRangingAvailable(){
+                    let currentLocation = locationManager.location
+                    long.text = String(describing: currentLocation?.coordinate.longitude)
+                    lat.text = String(describing: currentLocation?.coordinate.longitude)
+                    counter += 1
+                    count.text = String(describing: counter)
+                }
+            }
+        }
+    }
+    @objc func updateCoordinates(){
+        let currentLocation = locationManager.location
+        long.text = String(describing: currentLocation?.coordinate.longitude)
+        lat.text = String(describing: currentLocation?.coordinate.longitude)
+        counter += 1
+        count.text = String(describing: counter)
+    }
     
     func getCameraCoordinate(sceneview: ARSCNView) -> myCameraCoordinate{
         let cameraTransform = sceneView.session.currentFrame?.camera.transform
@@ -41,7 +70,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let alert = UIAlertController(title: "Alert", message: "location added", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
-
         
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
         let cc  = getCameraCoordinate(sceneview: sceneView)
@@ -49,14 +77,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
         
-        
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
         base.position = SCNVector3(cc.x,cc.y+1.05,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
         
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
-        base2.position = SCNVector3(cc.x,cc.y+.0775,cc.z-0.1)
+        base2.position = SCNVector3(cc.x,cc.y+0.0775,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base2.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
         
@@ -72,10 +99,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set the view's delegate
-        sceneView.delegate = self
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
         
-        // Show statistics such as fps and timing information
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        
+        locationManager.startUpdatingLocation()
+        scheduledTimerWithTimeInterval()
+
+        
+        sceneView.delegate = self
         sceneView.showsStatistics = true
 
 
@@ -88,14 +122,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.view.addSubview(button)
         
         
-
-
-        
-        // Create a new scene
-//        let arrow = SCNNode(geometry: SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1))
-        // Set the scene to the view
   
+    
+    
     }
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -104,45 +137,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let configuration = ARWorldTrackingConfiguration()
 
         // Run the view's session
-
         sceneView.session.run(configuration)
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         // Pause the view's session
         sceneView.session.pause()
     }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
 }
+
+

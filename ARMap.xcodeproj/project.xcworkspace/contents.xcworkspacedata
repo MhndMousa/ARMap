@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/Mhnd/code/porject/ARMap/ARMap/art.scnassets/arrow.dae">
+      location = "group:/Users/Mhnd/code/porject/ARMap/ARMap/Location.swift">
    </FileRef>
    <FileRef
       location = "self:">
