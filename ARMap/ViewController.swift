@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
-    struct myCameraCoordinat {
+    struct myCameraCoordinate {
         var x = Float()
         var y = Float()
         var z = Float()
@@ -24,29 +24,39 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     
     
-//    func getCameraCoordinate(sceneview: ARSCNView) -> myCameraCoordinate{
-//    }
+    func getCameraCoordinate(sceneview: ARSCNView) -> myCameraCoordinate{
+        let cameraTransform = sceneView.session.currentFrame?.camera.transform
+        let cameraCoordinates = MDLTransform(matrix: cameraTransform!)
+        
+        var cc = myCameraCoordinate()
+        cc.x = cameraCoordinates.translation.x
+        cc.y = cameraCoordinates.translation.y
+        cc.z = cameraCoordinates.translation.z
+        
+        return cc
+    }
     
     
     @objc func buttonAction(sender: UIButton!) {
-//        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
-//        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Alert", message: "location added", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
 
         
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
-        arrow.position = SCNVector3(0,0,-3)
+        let cc  = getCameraCoordinate(sceneview: sceneView)
+        arrow.position = SCNVector3(cc.x,cc.y+0.7,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
         
         
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
-        base.position = SCNVector3(0,0.35,-3)
+        base.position = SCNVector3(cc.x,cc.y+1.05,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
         
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
-        base2.position = SCNVector3(0,0.075,-3)
+        base2.position = SCNVector3(cc.x,cc.y+.0775,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
         base2.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
         
