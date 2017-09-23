@@ -9,11 +9,20 @@
 import UIKit
 import SceneKit
 import ARKit
+import CoreLocation
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    struct myCameraCoordinat {
+        var x = Float()
+        var y = Float()
+        var z = Float()
+    }
+//    func getCameraCoordinate(sceneview: ARSCNView) -> myCameraCoordinate{
+//
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,10 +33,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+
+//        let arrow = SCNNode(geometry: SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1))
+        let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
+        arrow.position = SCNVector3(0,0,-3)
+        arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+        arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 1)
+
+
+        
+        let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
+        base.position = SCNVector3(0,0.2,-3)
+        base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+        base.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 1)
+
+        sceneView.scene.rootNode.addChildNode(arrow)
+        sceneView.scene.rootNode.addChildNode(base)
         
         // Set the scene to the view
-        sceneView.scene = scene
+//        sceneView.scene = arrow
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +61,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let configuration = ARWorldTrackingConfiguration()
 
         // Run the view's session
+
         sceneView.session.run(configuration)
     }
     

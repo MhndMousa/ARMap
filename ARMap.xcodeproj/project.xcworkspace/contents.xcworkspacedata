@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ARMap.xcodeproj">
+      location = "group:/Users/Mhnd/code/porject/ARMap/ARMap/art.scnassets/arrow.dae">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
