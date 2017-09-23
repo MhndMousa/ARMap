@@ -20,9 +20,45 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         var y = Float()
         var z = Float()
     }
+    
+    
+    
+    
 //    func getCameraCoordinate(sceneview: ARSCNView) -> myCameraCoordinate{
-//
 //    }
+    
+    
+    @objc func buttonAction(sender: UIButton!) {
+//        let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: UIAlertControllerStyle.alert)
+//        alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
+
+        
+        let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
+        arrow.position = SCNVector3(0,0,-3)
+        arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+        arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
+        
+        
+        let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
+        base.position = SCNVector3(0,0.35,-3)
+        base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+        base.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
+        
+        let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
+        base2.position = SCNVector3(0,0.075,-3)
+        base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+        base2.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
+        
+        sceneView.scene.rootNode.addChildNode(arrow)
+        sceneView.scene.rootNode.addChildNode(base)
+        sceneView.scene.rootNode.addChildNode(base2)
+        
+
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,27 +67,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+
+
+        
+        let button = UIButton(frame: CGRect(x: self.view.frame.width/2 - 50, y: self.view.frame.height - 100, width: 100, height: 50))
+        button.backgroundColor = .green
+        button.setTitle("Test Button", for: .normal)
+        button.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+        
+        
+
+
         
         // Create a new scene
-
 //        let arrow = SCNNode(geometry: SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1))
-        let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
-        arrow.position = SCNVector3(0,0,-3)
-        arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 1)
-
-
-        
-        let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
-        base.position = SCNVector3(0,0.2,-3)
-        base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        base.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 1)
-
-        sceneView.scene.rootNode.addChildNode(arrow)
-        sceneView.scene.rootNode.addChildNode(base)
-        
         // Set the scene to the view
-//        sceneView.scene = arrow
+  
     }
     
     override func viewWillAppear(_ animated: Bool) {
