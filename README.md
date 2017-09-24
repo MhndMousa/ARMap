@@ -15,3 +15,4 @@ We had two main ideas:
   Both of these seemed very interesting to us and we worked towards implementing a representation of this
 
 ![GitHub Logo](Demo/CarPosition.gif)
+![GitHub Logo](Demo/FriendPosition.gif)
