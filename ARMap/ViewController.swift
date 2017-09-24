@@ -1,5 +1,5 @@
 //
-//  Location.swift
+// ViewContoller.swift
 //  ARMap
 //
 //  Created by Muhannad Mousa on 9/23/17.
@@ -31,6 +31,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         var z = Double()
     }
     
+    
+    
+    
     func scheduledTimerWithTimeInterval(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateCoordinates), userInfo: nil, repeats: true)
     }
@@ -39,11 +42,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         if status == .authorizedWhenInUse{
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self){
                 if CLLocationManager.isRangingAvailable(){
-                    let currentLocation = locationManager.location
-                    long.text = String(describing: currentLocation?.coordinate.longitude)
-                    lat.text = String(describing: currentLocation?.coordinate.latitude)
-                    counter += 1
-                    count.text = String(describing: counter)
+//                    let currentLocation = locationManager.location
+//                    long.text = String(describing: currentLocation?.coordinate.longitude)
+//                    lat.text = String(describing: currentLocation?.coordinate.latitude)
+//                    counter += 1
+//                    count.text = String(describing: counter)
                 }
             }
         }
@@ -51,12 +54,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     
    // Uses Map
     @objc func updateCoordinates(){
-        let currentLocation = locationManager.location
-        long.text = String(describing: currentLocation?.coordinate.longitude)
-        lat.text = String(describing: currentLocation?.coordinate.longitude)
-        counter += 1
-        print(counter)
-        count.text = String(describing: counter)
+//        let currentLocation = locationManager.location
+//        long.text = String(describing: currentLocation?.coordinate.longitude)
+//        lat.text = String(describing: currentLocation?.coordinate.longitude)
+//        counter += 1
+//        print(counter)
+//        count.text = String(describing: counter)
     }
     
     // Uses AR
@@ -72,44 +75,70 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         return cc
     }
     
-    @objc func buttonAction(sender: UIButton!) {
-        let alert = UIAlertController(title: "Alert", message: "location added", preferredStyle: UIAlertControllerStyle.alert)
+    
+    @objc func addCurrentLocation(sender: UIButton!) {
+        let alert = UIAlertController(title: "Marked", message: "Your location has been added to the map", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
-
+        
+        let pink = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
+        
         let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
         let cc  = getCameraCoordinate(sceneview: sceneView)
         arrow.position = SCNVector3(cc.x,cc.y+0.7,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
-
+        arrow.geometry!.firstMaterial?.diffuse.contents  = pink
+        
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
         base.position = SCNVector3(cc.x,cc.y+1.05,cc.z-0.1)
         base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        base.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
-
+        base.geometry!.firstMaterial?.diffuse.contents  = pink
+        
         let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
         base2.position = SCNVector3(cc.x,cc.y+0.0775,cc.z-0.1)
         base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        base2.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
-
+        base2.geometry!.firstMaterial?.diffuse.contents  = pink
+        
         sceneView.scene.rootNode.addChildNode(arrow)
         sceneView.scene.rootNode.addChildNode(base)
         sceneView.scene.rootNode.addChildNode(base2)
-
-
-        
-
-        
     }
-
-
-
     
+    
+    @objc func addFriendLocation(sender: UIButton!) {
+            
+            let alert = UIAlertController(title: "Marked", message: "Your friend's location has been added to the map", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+            let green = UIColor.green
+            
+            let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
+            let cc  = getCameraCoordinate(sceneview: sceneView)
+            arrow.position = SCNVector3(cc.x+10,cc.y+0.7,cc.z-0.1)
+            arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+            arrow.geometry!.firstMaterial?.diffuse.contents  = green
+            let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
+            base.position = SCNVector3(cc.x+10,cc.y+1.05,cc.z-0.1)
+            base.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+            base.geometry!.firstMaterial?.diffuse.contents  = green
+            
+            let base2 = SCNNode(geometry: SCNBox(width: 0.3, height: 0.1, length: 0.3, chamferRadius: 0))
+            base2.position = SCNVector3(cc.x+10,cc.y+0.0775,cc.z-0.1)
+            base2.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+            base2.geometry!.firstMaterial?.diffuse.contents  = green
+            
+            sceneView.scene.rootNode.addChildNode(arrow)
+            sceneView.scene.rootNode.addChildNode(base)
+            sceneView.scene.rootNode.addChildNode(base2)
+            
+        
+      
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateCoordinates()
+
         locationManager = CLLocationManager()
         locationManager.delegate = self
         
@@ -119,7 +148,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         scheduledTimerWithTimeInterval()
-
         
         sceneView.delegate = self
         sceneView.showsStatistics = true
@@ -136,27 +164,36 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         //        var x = currentLocation?.coordinate.latitude
         //         long.text = String(describing: x)
         //         lat.text = String(describing: currentLocation?.coordinate.longitude)
-        let currentLocation = locationManager.location
-       
-        let z_coordinate = locationOnEarth(lat:42.292005,long: -83.716203, currentLatitude: (currentLocation?.coordinate.latitude)!, currentLongitude: (currentLocation?.coordinate.longitude)!).z
-        let x_coordinate = locationOnEarth(lat:42.292005,long: -83.716203, currentLatitude: (currentLocation?.coordinate.latitude)!, currentLongitude: (currentLocation?.coordinate.longitude)!).x
-        
-        var y = locationOnEarth(lat:42.292005,long: -83.716203, currentLatitude: (currentLocation?.coordinate.latitude)!, currentLongitude: (currentLocation?.coordinate.longitude)!).y
-        
-        
-        
-        let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
-        arrow.position = SCNVector3(x_coordinate,0,z_coordinate)
-        arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
-        sceneView.scene.rootNode.addChildNode(arrow)
-        
-        let button = UIButton(frame: CGRect(x: self.view.frame.width/2 - 50, y: self.view.frame.height - 100, width: 100, height: 50))
-        button.backgroundColor = .green
-        button.setTitle("Test Button", for: .normal)
-        button.addTarget(self, action: #selector(buttonAction(sender:)), for: .touchUpInside)
+//        let currentLocation = locationManager.location
+//
+//        let z_coordinate = locationOnEarth(lat:42.292005,long: -83.716203, currentLatitude: (currentLocation?.coordinate.latitude)!, currentLongitude: (currentLocation?.coordinate.longitude)!).z
+//        let x_coordinate = locationOnEarth(lat:42.292005,long: -83.716203, currentLatitude: (currentLocation?.coordinate.latitude)!, currentLongitude: (currentLocation?.coordinate.longitude)!).x
+//
+//        var y = locationOnEarth(lat:42.292005,long: -83.716203, currentLatitude: (currentLocation?.coordinate.latitude)!, currentLongitude: (currentLocation?.coordinate.longitude)!).y
+//
+//
+//
+//        let arrow = SCNNode(geometry: SCNPyramid(width: 0.5, height: 0.5, length: 0.5))
+//        arrow.position = SCNVector3(x_coordinate,0,z_coordinate)
+//        arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
+//        arrow.geometry!.firstMaterial?.diffuse.contents  = UIColor(red: 255.0 / 255.0, green: 20.0 / 255.0, blue: 147.0 / 255.0, alpha: 0.8)
+//        sceneView.scene.rootNode.addChildNode(arrow)
+//
+        let button = UIButton(frame: CGRect(x: self.view.frame.width - 100, y: self.view.frame.height - 100, width: 100, height: 50))
+        button.backgroundColor = .blue
+        button.setTitle("Current Location", for: .normal)
+        button.titleLabel!.font = UIFont.boldSystemFont(ofSize: 12)
+        button.addTarget(self, action: #selector(addCurrentLocation(sender:)), for: .touchUpInside)
+
+        let button2 = UIButton(frame: CGRect(x: 0, y: self.view.frame.height - 100, width: 100, height: 50))
+        button2.backgroundColor = .blue
+        button2.setTitle("Friend Location", for: .normal)
+        button2.titleLabel!.font = UIFont.boldSystemFont(ofSize: 12)
+        button2.addTarget(self, action: #selector(addFriendLocation(sender:)), for: .touchUpInside)
         
         self.view.addSubview(button)
+        self.view.addSubview(button2)
+    
         
     }
 
@@ -165,19 +202,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         let lat = 42.292005
         let long = -83.716203
         
-        // let xOfInput = 2 * 6371000.0 * cos(lat) * cos(long)
+         let xOfInput = 6371000.0 * cos(lat) * cos(long)
         let yOfInput = 6371000.0 * cos(lat) * sin(long)
-        // let zOfInput = 2 * 6371000.0 * sin(lat)
+         let zOfInput = 6371000.0 * sin(lat)
         
         let currentLong = currentLongitude
         let currentLat = currentLatitude
         
-        // let xOfCurrent = 2 * 6371000.0 * cos(currentLat) * cos(currentLong)
+         let xOfCurrent = 6371000.0 * cos(currentLat) * cos(currentLong)
         let yOfCurrent = 6371000.0 * cos(currentLat) * sin(currentLong)
-        // let zOfCurrent = 2 * 6371000.0 * sin(currentLat)
+         let zOfCurrent =  6371000.0 * sin(currentLat)
         
-        let xFromCurrentToInput = 2 * 6371000.0 * ((lat - currentLat)/360)
-        let zFromCurrentToInput = 2 * 6371000.0 * ((long - currentLong)/360)
+        let xFromCurrentToInput = xOfInput - xOfCurrent
+        let zFromCurrentToInput = zOfInput - zOfCurrent
         let yFromCurrentToInput = yOfInput - yOfCurrent
         
         var loc = coordinate()

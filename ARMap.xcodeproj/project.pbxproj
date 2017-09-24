@@ -14,6 +14,7 @@
 		59DD227B1F763940009E4FA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59DD22791F763940009E4FA9 /* Main.storyboard */; };
 		59DD227D1F763940009E4FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59DD227C1F763940009E4FA9 /* Assets.xcassets */; };
 		59DD22801F763940009E4FA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59DD227E1F763940009E4FA9 /* LaunchScreen.storyboard */; };
+		59ED2B391F77AF7A00F76AB7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 59ED2B371F77AF7A00F76AB7 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		59DD227C1F763940009E4FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		59DD227F1F763940009E4FA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		59DD22811F763941009E4FA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59ED2B381F77AF7A00F76AB7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 		59DD22671F763940009E4FA9 = {
 			isa = PBXGroup;
 			children = (
+				59ED2B371F77AF7A00F76AB7 /* Model.xcdatamodeld */,
 				59DD22721F763940009E4FA9 /* ARMap */,
 				59DD22711F763940009E4FA9 /* Products */,
 			);
@@ -146,6 +149,7 @@
 			files = (
 				59DD22781F763940009E4FA9 /* ViewController.swift in Sources */,
 				59DD22741F763940009E4FA9 /* AppDelegate.swift in Sources */,
+				59ED2B391F77AF7A00F76AB7 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +334,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		59ED2B371F77AF7A00F76AB7 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				59ED2B381F77AF7A00F76AB7 /* Model.xcdatamodel */,
+			);
+			currentVersion = 59ED2B381F77AF7A00F76AB7 /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = ARMap/Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 59DD22681F763940009E4FA9 /* Project object */;
 }
