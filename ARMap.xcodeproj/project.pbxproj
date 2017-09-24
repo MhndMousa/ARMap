@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		59CF8C571F772B2E00C4CAC5 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59CF8C561F772B2D00C4CAC5 /* Location.swift */; };
+		59CF8C591F773E9600C4CAC5 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 59CF8C581F773E9500C4CAC5 /* pin.png */; };
 		59DD22741F763940009E4FA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD22731F763940009E4FA9 /* AppDelegate.swift */; };
 		59DD22761F763940009E4FA9 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 59DD22751F763940009E4FA9 /* art.scnassets */; };
 		59DD22781F763940009E4FA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DD22771F763940009E4FA9 /* ViewController.swift */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		59CF8C561F772B2D00C4CAC5 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Location.swift; path = /Users/Mhnd/code/porject/ARMap/ARMap/Location.swift; sourceTree = "<absolute>"; };
+		59CF8C581F773E9500C4CAC5 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		59DD22701F763940009E4FA9 /* ARMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DD22731F763940009E4FA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59DD22751F763940009E4FA9 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -58,8 +58,8 @@
 		59DD22721F763940009E4FA9 /* ARMap */ = {
 			isa = PBXGroup;
 			children = (
+				59CF8C581F773E9500C4CAC5 /* pin.png */,
 				59DD22731F763940009E4FA9 /* AppDelegate.swift */,
-				59CF8C561F772B2D00C4CAC5 /* Location.swift */,
 				59DD22751F763940009E4FA9 /* art.scnassets */,
 				59DD22771F763940009E4FA9 /* ViewController.swift */,
 				59DD22791F763940009E4FA9 /* Main.storyboard */,
@@ -129,6 +129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59CF8C591F773E9600C4CAC5 /* pin.png in Resources */,
 				59DD22761F763940009E4FA9 /* art.scnassets in Resources */,
 				59DD22801F763940009E4FA9 /* LaunchScreen.storyboard in Resources */,
 				59DD227D1F763940009E4FA9 /* Assets.xcassets in Resources */,
@@ -144,7 +145,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				59DD22781F763940009E4FA9 /* ViewController.swift in Sources */,
-				59CF8C571F772B2E00C4CAC5 /* Location.swift in Sources */,
 				59DD22741F763940009E4FA9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
