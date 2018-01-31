@@ -87,7 +87,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         let cc  = getCameraCoordinate(sceneview: sceneView)
         arrow.position = SCNVector3(cc.x,cc.y+0.7,cc.z-0.1)
         arrow.pivot = SCNMatrix4MakeRotation(3.14,1,0,0)
-        arrow.geometry!.firstMaterial?.diffuse.contents  = pink
+      	  arrow.geometry!.firstMaterial?.diffuse.contents  = pink
         
         let base = SCNNode(geometry: SCNBox(width: 0.3, height: 0.4, length: 0.3, chamferRadius: 0))
         base.position = SCNVector3(cc.x,cc.y+1.05,cc.z-0.1)
